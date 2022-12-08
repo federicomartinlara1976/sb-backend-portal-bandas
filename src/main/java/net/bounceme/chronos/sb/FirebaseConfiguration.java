@@ -39,7 +39,12 @@ public class FirebaseConfiguration {
     public ObjectMapper firebaseObjectMapper() {
         ObjectMapper objectMapper = new ObjectMapper();
         objectMapper.setAnnotationIntrospector(new JacksonAnnotationIntrospector() {
-            @Override
+            /**
+			 * 
+			 */
+			private static final long serialVersionUID = -5312776775586819210L;
+
+			@Override
             public boolean hasIgnoreMarker(AnnotatedMember m) {
                 return _findAnnotation(m, FirebaseId.class) != null;
             }

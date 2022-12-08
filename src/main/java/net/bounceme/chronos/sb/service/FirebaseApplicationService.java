@@ -22,7 +22,8 @@ public class FirebaseApplicationService {
 
     private GoogleCredential scoped;
 
-    private final ResourceLoader resourceLoader;
+    @SuppressWarnings("unused")
+	private final ResourceLoader resourceLoader;
 
     private final FirebaseConfigurationProperties firebaseConfigurationProperties;
 

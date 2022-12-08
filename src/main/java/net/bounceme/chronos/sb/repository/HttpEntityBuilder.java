@@ -30,16 +30,19 @@ public class HttpEntityBuilder<T> {
         }
     }
 
-    public static HttpEntityBuilder create(ObjectMapper firebaseObjectMapper, FirebaseApplicationService firebaseApplicationService) {
+    @SuppressWarnings("rawtypes")
+	public static HttpEntityBuilder create(ObjectMapper firebaseObjectMapper, FirebaseApplicationService firebaseApplicationService) {
         return new HttpEntityBuilder(firebaseObjectMapper, firebaseApplicationService);
     }
 
-    public HttpEntityBuilder document(T document) {
+    @SuppressWarnings("rawtypes")
+	public HttpEntityBuilder document(T document) {
         this.document = document;
         return this;
     }
 
-    public HttpEntityBuilder header(String headerName, String headerValue) {
+    @SuppressWarnings("rawtypes")
+	public HttpEntityBuilder header(String headerName, String headerValue) {
         this.headers.add(headerName, headerValue);
         return this;
     }

@@ -56,7 +56,8 @@ public class DefaultFirebaseRealtimeDatabaseRepository<T, ID> implements Firebas
 
     private String documentPath;
 
-    private final static List<Class> allowedIdTypes = Lists.newArrayList(Integer.class, Long.class, String.class);
+    @SuppressWarnings("rawtypes")
+	private final static List<Class> allowedIdTypes = Lists.newArrayList(Integer.class, Long.class, String.class);
 
     public DefaultFirebaseRealtimeDatabaseRepository() {
         documentClass = (Class<T>) ((ParameterizedType) getClass().getGenericSuperclass()).getActualTypeArguments()[0];
@@ -72,7 +73,8 @@ public class DefaultFirebaseRealtimeDatabaseRepository<T, ID> implements Firebas
         documentPath = annotation.value();
     }
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public T set(T document, Object... uriVariables) {
         ReflectionUtils.makeAccessible(documentId);
         ID id = (ID) ReflectionUtils.getField(documentId, document);
@@ -85,7 +87,8 @@ public class DefaultFirebaseRealtimeDatabaseRepository<T, ID> implements Firebas
         return response;
     }
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public T update(T document, Object... uriVariables) {
         ReflectionUtils.makeAccessible(documentId);
         ID id = (ID) ReflectionUtils.getField(documentId, document);
@@ -100,7 +103,8 @@ public class DefaultFirebaseRealtimeDatabaseRepository<T, ID> implements Firebas
         return response;
     }
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public T push(T document, Object... uriVariables) {
         ReflectionUtils.makeAccessible(documentId);
 
@@ -112,19 +116,22 @@ public class DefaultFirebaseRealtimeDatabaseRepository<T, ID> implements Firebas
         return document;
     }
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public void remove(ID id, Object... uriVariables) {
         HttpEntity httpEntity = HttpEntityBuilder.create(firebaseObjectMapper, firebaseApplicationService).build();
         restTemplate.exchange(getDocumentPath(id), HttpMethod.DELETE, httpEntity, Void.class, uriVariables).getBody();
     }
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public void removeAll(Object... uriVariables) {
         HttpEntity httpEntity = HttpEntityBuilder.create(firebaseObjectMapper, firebaseApplicationService).build();
         restTemplate.exchange(getDocumentPath(), HttpMethod.DELETE, httpEntity, Void.class, uriVariables).getBody();
     }
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public T get(ID id, Object... uriVariables) throws FirebaseRepositoryException {
         ReflectionUtils.makeAccessible(documentId);
 
@@ -143,7 +150,8 @@ public class DefaultFirebaseRealtimeDatabaseRepository<T, ID> implements Firebas
         return find(Filter.FilterBuilder.builder().build(), uriVariables);
     }
 
-    @Override
+    @SuppressWarnings("rawtypes")
+	@Override
     public List<T> find(Filter filter, Object... uriVariables) {
         HttpEntity httpEntity = HttpEntityBuilder.create(firebaseObjectMapper, firebaseApplicationService).build();
         String responseString = restTemplate.exchange(getDocumentPath() + filter.toQueryParameters(), HttpMethod.GET, httpEntity, String.class, uriVariables).getBody();
@@ -247,7 +255,8 @@ public class DefaultFirebaseRealtimeDatabaseRepository<T, ID> implements Firebas
     public static class FirebaseObjectListTypeReference extends TypeReference<Object> {
         private final Type type;
 
-        public FirebaseObjectListTypeReference(ParameterizedTypeReference parameterizedTypeReference) {
+        @SuppressWarnings("rawtypes")
+		public FirebaseObjectListTypeReference(ParameterizedTypeReference parameterizedTypeReference) {
             this.type = parameterizedTypeReference.getType();
         }
 
